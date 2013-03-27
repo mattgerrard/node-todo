@@ -15,9 +15,9 @@ exports.save = function ( req, res, next ) {
   var tasks = req.body.tasks
   for(var task in tasks) {
     if (tasks.hasOwnProperty(task)) {
-      if(tasks[task]._destroy) {
+      if(tasks[task]._destroy && tasks[task].id) {
         destoryTask(tasks[task].id, res, req);
-      } else {
+      } else if(!tasks[task]._destroy) {
         createOrUpdateTask(tasks[task].id, req.cookies.user_id, tasks[task].title, tasks[task].isDone);
       }
     }
